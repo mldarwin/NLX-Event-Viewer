@@ -19,3 +19,21 @@ sampleVal = Samples(1);
 
 actVolts = sampleVal * adbitsVal; % in Volts
 microVolts = actVolts * 1000000;
+
+
+%% Time conversion
+
+% Start Time in Header File
+
+% Start Recording Value 
+
+% TTL value 
+
+
+% hdr   = ft_read_header('dataset_directory');
+% event = ft_read_event('dataset_directory');
+% 
+% for i=1:length(event)
+%   % the first sample in the datafile is 1
+%   event(i).sample = (event(i).timestamp-double(hdr.FirstTimeStamp))./hdr.TimeStampPerSample + 1;
+% end
