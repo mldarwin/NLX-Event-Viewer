@@ -3,10 +3,10 @@
 % when importing data into another analysis tool such as MATLAB®. The value indicated is the multiplier used 
 % in conjunction with the A/D value stored in each record from each sample. For example:
 
-[Timestamps, ChannelNumbers, SampleFrequencies, NumberOfValidSamples,...
-    Samples, Header] = Nlx2MatCSC('CSC257_0002.ncs', [1 1 1 1 1], 1, 1, [] );
+[TimestampsCSC, ChannelNumbers, SampleFrequencies, NumberOfValidSamples,...
+    Samples, HeaderCSC] = Nlx2MatCSC('CSC257_0019.ncs', [1 1 1 1 1], 1, 1, [] );
 
-adLine = Header(contains(Header, 'ADBit'));
+adLine = HeaderCSC(contains(HeaderCSC, 'ADBit'));
 adItems = strsplit(adLine{1},' ');
 adBitVal = str2double(adItems{2});
 
@@ -22,13 +22,26 @@ microVolts = actVolts * 1000000;
 
 
 %% Time conversion
-
+[TimestampsEV, EventIDs, TTLs, Extras, EventStrings, HeaderEV] =...
+Nlx2MatEV('Events_0030.nev', [1 1 1 1 1], 1, 1, [] );
 % Start Time in Header File
 
+% FIND matching time create
+timeCline = HeaderEV(contains(HeaderEV, '-TimeCreated'));
+tcItems = strsplit(timeCline{1},' ');
+timeCreate = datetime([tcItems{2} , ' ', tcItems{3}],...
+    'InputFormat','yyyy/MM/dd HH:mm:ss');
+
+
 % Start Recording Value 
-
+allStarts = contains(EventStrings,'Starting Recording');
+singStart = find(allStarts,1,'last');
 % TTL value 
+ttlVal = TimestampsEV(singStart);
+% Time in Seconds
+% timeSecs = timeCreate + (
 
+% Sample?
 
 % hdr   = ft_read_header('dataset_directory');
 % event = ft_read_event('dataset_directory');
