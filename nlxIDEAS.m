@@ -32,7 +32,6 @@ tcItems = strsplit(timeCline{1},' ');
 timeCreate = datetime([tcItems{2} , ' ', tcItems{3}],...
     'InputFormat','yyyy/MM/dd HH:mm:ss');
 
-
 % Start Recording Value 
 allStarts = contains(EventStrings,'Starting Recording');
 singStart = find(allStarts,1,'last');
@@ -42,6 +41,31 @@ ttlVal = TimestampsEV(singStart);
 % timeSecs = timeCreate + (
 
 % Sample?
+%%
+TimestampsCSCm = zeros(512,size(TimestampsCSC,2));
+TimestampsCSCm(1,:) = TimestampsCSC;
+for ti = 1:size(TimestampsCSC,2)
+    
+    if ti == size(TimestampsCSC,2)
+        tmpl = linspace(TimestampsCSC(ti),TimestampsCSC(ti)+16000,511);
+    else
+        tmpl = linspace(TimestampsCSC(ti),TimestampsCSC(ti + 1),511);
+    end
+    tmplt = transpose(tmpl);
+    TimestampsCSCm(2:512,ti) = tmpl;
+end
+
+%%
+ttlVal = TimestampsEV(4);
+sv = abs(TimestampsCSCm - ttlVal);
+[~ , ephysInd] = min(min(sv));
+
+%% 
+timeREcord = datetime(ttlVal/1000000,'ConvertFrom','posixtime','TimeZone','America/Denver');
+
+
+
+
 
 % hdr   = ft_read_header('dataset_directory');
 % event = ft_read_event('dataset_directory');
