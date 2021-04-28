@@ -23,8 +23,10 @@ electrode_table_region2 = types.hdmf_common.DynamicTableRegion( ...
     'description', 'some different electrodes', ...
     'data', (11:21)');
 
+nwb.acquisition.set('MicrowireSeries', electrical_series_1);
+nwb.acquisition.set('MacrowireSeries', electrical_series_2);
 
-data = nw.acquisition.get('ElectricalSeries_MI').data.load();
+data = nw.acquisition.get('MicrowireSeries').electrodes();
 table(transpose(data));
 tbl1 = array2table(transpose(data));
 stackedplot(tbl1)
