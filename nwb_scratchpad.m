@@ -30,3 +30,10 @@ data = nw.acquisition.get('MicrowireSeries').electrodes();
 table(transpose(data));
 tbl1 = array2table(transpose(data));
 stackedplot(tbl1)
+
+
+nw2 = nwbRead('nwb');
+micInd = nw2.acquisition.get('MicroWireSeries').electrodes.data.load();
+lt = nw2.general_extracellular_ephys_electrodes.vectordata.get('label').data.load();
+ltc = cellstr(lt);
+ltc(micInd+1);
