@@ -37,3 +37,10 @@ micInd = nw2.acquisition.get('MicroWireSeries').electrodes.data.load();
 lt = nw2.general_extracellular_ephys_electrodes.vectordata.get('label').data.load();
 ltc = cellstr(lt);
 ltc(micInd+1);
+
+
+%% 
+
+% create LFP processing
+% add behavior events
+% create spike processing
